@@ -1,0 +1,9 @@
+<h2 style="font-size: 18px; font-weight: bold; color: #0f172a; margin-top: 0; margin-bottom: 16px;">Hello {{userName}},</h2>
+<p style="margin: 0 0 16px 0;">This is an alert that a project deadline is approaching within the next 48 hours.</p>
+
+<div style="background-color: #fef2f2; padding: 16px; border-left: 4px solid #ef4444; margin: 20px 0; border-radius: 0 6px 6px 0; font-size: 14px; line-height: 1.5; color: #991b1b;">
+  <strong>Project:</strong> {{projectName}}<br>
+  <strong>Deadline:</strong> {{#if deadline}}{{deadline}}{{else}}Approaching within 48 Hours{{/if}}
+</div>
+
+<p style="margin: 0 0 8px 0;">Please ensure all active tasks and milestones are updated. Click the button below to check your dashboard and active projects.</p>

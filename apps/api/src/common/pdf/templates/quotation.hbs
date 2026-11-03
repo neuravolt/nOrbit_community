@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page { size: A4; margin: 14mm 16mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, Helvetica, sans-serif; font-size: 9.5pt; color: #0f172a; line-height: 1.45; }
+
+  .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #334155; padding-bottom: 14px; margin-bottom: 18px; }
+  .company-name { font-size: 18pt; font-weight: 700; color: #0f172a; letter-spacing: -0.5px; text-transform: uppercase; }
+  .tagline { font-size: 8pt; color: #64748b; margin-top: 3px; font-style: italic; }
+  .logo-wrap { display: flex; align-items: center; margin-bottom: 5px; }
+  .logo-wrap img { height: 38px; max-width: 190px; width: auto; object-fit: contain; display: block; }
+  .company-details { text-align: right; font-size: 8pt; color: #475569; line-height: 1.7; }
+  .company-details strong { color: #0f172a; }
+
+  .doc-header { display: flex; justify-content: space-between; align-items: flex-start; margin: 16px 0 14px; }
+  .doc-title { font-size: 20pt; font-weight: 700; letter-spacing: -0.5px; text-transform: uppercase; color: #0f172a; }
+  .doc-meta { text-align: right; font-size: 8.5pt; line-height: 1.9; color: #334155; }
+  .doc-meta .num { font-size: 12pt; font-weight: 700; color: #0f172a; }
+
+  .info-grid { display: table; width: 100%; margin-bottom: 18px; background: #f8fafc; padding: 13px 16px; border-radius: 4px; border: 1px solid #e2e8f0; }
+  .info-section { display: table-cell; width: 50%; vertical-align: top; }
+  .info-section .label { font-size: 7.5pt; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+  .info-section .client-name { font-size: 11pt; font-weight: 700; color: #0f172a; }
+  .info-section p, .info-section div { font-size: 8pt; color: #475569; line-height: 1.65; margin-top: 1px; }
+
+  table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+  thead tr { background: #334155; }
+  th { color: #fff; padding: 8px 9px; font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; }
+  th.right { text-align: right; }
+  td { padding: 8px 9px; font-size: 8.5pt; border-bottom: 1px solid #e2e8f0; vertical-align: top; color: #0f172a; }
+  td.right { text-align: right; }
+  tr:nth-child(even) { background: #f8fafc; }
+
+  .badge-free { display: inline-block; background: #dcfce7; color: #166534; font-size: 6.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px; vertical-align: middle; margin-right: 3px; }
+
+  .totals-wrapper { display: flex; justify-content: flex-end; margin-bottom: 20px; }
+  .totals-table { width: 290px; }
+  .totals-table td { padding: 5px 9px; font-size: 9pt; border: none; background: none; }
+  .totals-table td:first-child { color: #475569; }
+  .totals-table td:last-child { text-align: right; font-weight: 600; color: #0f172a; }
+  .grand-total td { font-size: 11.5pt; font-weight: 800; border-top: 2px solid #334155; padding-top: 9px; color: #0f172a; }
+
+  section { margin-bottom: 16px; }
+  section h3 { font-size: 9.5pt; font-weight: 700; margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px solid #e2e8f0; color: #334155; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .scope-box, .excl-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 11px 14px; margin-bottom: 14px; }
+  .scope-box h3, .excl-box h3 { font-size: 9pt; font-weight: 700; margin-bottom: 6px; color: #0f172a; }
+
+  .milestone-table th, .milestone-table td { font-size: 8.5pt; padding: 6px 8px; }
+
+  .approval-box { border: 1px solid #cbd5e1; border-radius: 5px; padding: 14px 16px; margin-top: 18px; background: #f8fafc; }
+  .approval-box h3 { font-size: 9.5pt; font-weight: 700; margin-bottom: 10px; padding-bottom: 7px; border-bottom: 1px solid #e2e8f0; color: #334155; text-transform: uppercase; letter-spacing: 0.5px; }
+  .approval-grid { display: block; }
+  .approval-field { display: inline-block; width: 48%; margin-right: 2%; border-bottom: 1px solid #e2e8f0; padding: 6px 0; }
+  .approval-field .key { font-size: 7.5pt; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+  .approval-field .val { font-size: 9pt; font-weight: 600; min-height: 20px; color: #0f172a; }
+
+  .sig-area { display: flex; justify-content: space-between; margin-top: 22px; }
+  .sig-block { text-align: center; width: 210px; }
+  .sig-block img { max-height: 50px; margin-bottom: 6px; }
+  .sig-line { border-top: 1px solid #334155; margin-top: 42px; padding-top: 5px; font-size: 8pt; color: #475569; }
+
+  .footer { margin-top: 24px; padding-top: 10px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 7pt; color: #94a3b8; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    {{#if company.logoUrl}}
+      <div class="logo-wrap"><img src="{{company.logoUrl}}" /></div>
+    {{else}}
+      <div class="company-name">{{company.companyName}}</div>
+    {{/if}}
+    {{#if company.legalName}}
+      <div style="font-size: 8pt; font-weight: bold; color: #555; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px;">A Brand of {{company.legalName}}</div>
+    {{/if}}
+    {{#if company.tagline}}<div class="tagline">{{company.tagline}}</div>{{/if}}
+  </div>
+  <div class="company-details">
+    {{#if company.address}}<div>{{company.address}}</div>{{/if}}
+    {{#if company.city}}<div>{{company.city}}{{#if company.state}}, {{company.state}}{{/if}}{{#if company.zip}} - {{company.zip}}{{/if}}</div>{{/if}}
+    {{#if company.phone}}<div>Tel: {{company.phone}}</div>{{/if}}
+    {{#if company.email}}<div>{{company.email}}</div>{{/if}}
+    {{#if company.gstNumber}}<div><strong>GSTIN: {{company.gstNumber}}</strong></div>{{/if}}
+    {{#if company.panNumber}}<div>PAN: {{company.panNumber}}</div>{{/if}}
+  </div>
+</div>
+
+<!-- DOC TITLE -->
+<div class="doc-header">
+  <div>
+    <div class="doc-title">Quotation</div>
+    <div style="font-size:8pt;color:#555;margin-top:3px;">{{quote.status}}</div>
+  </div>
+  <div class="doc-meta">
+    <div class="num">{{quote.quoteNumber}}</div>
+    <div>Date: <strong>{{formatDate quote.createdAt}}</strong></div>
+    {{#if quote.validUntil}}<div>Valid Until: <strong>{{formatDate quote.validUntil}}</strong></div>{{/if}}
+  </div>
+</div>
+
+<!-- CLIENT INFO -->
+<div class="info-grid">
+  <div class="info-section">
+    <div class="label">Prepared For</div>
+    <div class="client-name">{{quote.client.name}}</div>
+    {{#if quote.client.address}}<div>{{quote.client.address}}</div>{{/if}}
+    {{#if quote.client.phone}}<div>Tel: {{quote.client.phone}}</div>{{/if}}
+    {{#if quote.client.email}}<div>{{quote.client.email}}</div>{{/if}}
+    {{#if quote.client.gstNumber}}<div><strong>GSTIN: {{quote.client.gstNumber}}</strong></div>{{/if}}
+  </div>
+  <div class="info-section">
+    <div class="label">Subject</div>
+    <div style="font-size:11pt;font-weight:700;">{{quote.title}}</div>
+    {{#if quote.description}}<div style="margin-top:5px;color:#555;">{{quote.description}}</div>{{/if}}
+  </div>
+</div>
+
+<!-- LINE ITEMS -->
+<table>
+  <thead>
+    <tr>
+      <th style="width:28px">#</th>
+      <th>Description</th>
+      <th style="width:55px">Unit</th>
+      <th style="width:48px">Qty</th>
+      <th class="right" style="width:88px">Unit Price</th>
+      <th class="right" style="width:88px">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each quote.lineItems}}
+    <tr>
+      <td>{{add @index 1}}</td>
+      <td>
+        <div style="font-weight:600;">
+          {{#if (eq this.itemType "FREE")}}<span class="badge-free">FREE</span>{{/if}}
+          {{this.description}}
+        </div>
+        {{#if this.longDescription}}<div style="font-size:7.5pt;color:#666;margin-top:2px;">{{this.longDescription}}</div>{{/if}}
+      </td>
+      <td>{{this.unit}}</td>
+      <td>{{formatNumber this.quantity}}</td>
+      <td class="right">{{#if (eq this.itemType "FREE")}}—{{else}}{{formatCurrency this.unitPrice}}{{/if}}</td>
+      <td class="right">
+        {{#if (eq this.itemType "FREE")}}
+          <span style="color:#166534;font-weight:700;">FREE</span>
+        {{else}}
+          {{formatCurrency this.amount}}
+        {{/if}}
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<!-- TOTALS -->
+<div class="totals-wrapper">
+  <table class="totals-table">
+    <tr><td>Subtotal</td><td>{{formatCurrency quote.subTotal}}</td></tr>
+    {{#if quote.discountAmount}}<tr><td style="color:#b91c1c;">Discount</td><td style="color:#b91c1c;">-{{formatCurrency quote.discountAmount}}</td></tr>{{/if}}
+    <tr><td>GST @ {{quote.gstRate}}%</td><td>{{formatCurrency quote.gstAmount}}</td></tr>
+    <tr class="grand-total"><td>Grand Total</td><td>{{formatCurrency quote.grandTotal}}</td></tr>
+  </table>
+</div>
+
+<!-- MILESTONE SCHEDULE -->
+{{#if quote.milestoneSchedule}}
+<section>
+  <h3>Milestone Payment Schedule</h3>
+  <table class="milestone-table">
+    <thead><tr><th>#</th><th>Milestone</th><th class="right">%</th><th class="right">Amount (Est.)</th></tr></thead>
+    <tbody>
+      {{#each quote.milestoneSchedule}}
+      <tr>
+        <td>{{add @index 1}}</td>
+        <td>{{this.milestone}}</td>
+        <td class="right">{{this.percentage}}%</td>
+        <td class="right">{{#if this.dueDate}}{{this.dueDate}}{{else}}—{{/if}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</section>
+{{/if}}
+
+<!-- SCOPE -->
+{{#if quote.scopeOfWork}}
+<div class="scope-box">
+  <h3>Scope of Work (Included)</h3>
+  <p style="font-size:8.5pt;white-space:pre-wrap;color:#333;">{{quote.scopeOfWork}}</p>
+</div>
+{{/if}}
+
+<!-- EXCLUSIONS -->
+{{#if quote.exclusions}}
+<div class="excl-box">
+  <h3>Exclusions (Not Included)</h3>
+  <p style="font-size:8.5pt;white-space:pre-wrap;color:#333;">{{quote.exclusions}}</p>
+</div>
+{{/if}}
+
+<!-- TERMS -->
+{{#if quote.termsConditions}}
+<section>
+  <h3>Terms &amp; Conditions</h3>
+  <p style="font-size:8pt;color:#444;white-space:pre-wrap;">{{quote.termsConditions}}</p>
+</section>
+{{/if}}
+
+<!-- APPROVAL -->
+<div class="approval-box">
+  <h3>Client Acceptance</h3>
+  <p style="font-size:8pt;color:#555;margin-bottom:14px;">I/We, the undersigned, hereby accept the above quotation and agree to the terms and conditions mentioned herein.</p>
+  <div class="approval-grid">
+    <div class="approval-field"><div class="key">Company Name</div><div class="val">&nbsp;</div></div>
+    <div class="approval-field"><div class="key">Authorized Person</div><div class="val">&nbsp;</div></div>
+    <div class="approval-field"><div class="key">Phone</div><div class="val">&nbsp;</div></div>
+    <div class="approval-field"><div class="key">Date</div><div class="val">&nbsp;</div></div>
+  </div>
+  <div class="sig-area">
+    <div class="sig-block">
+      <div class="sig-line">Client Signature &amp; Stamp</div>
+    </div>
+    <div class="sig-block">
+      {{#if company.signatureUrl}}<img src="{{company.signatureUrl}}" />{{/if}}
+      <div class="sig-line">For {{#if company.legalName}}{{company.legalName}}{{else}}{{company.companyName}}{{/if}}<br/>Authorized Signatory</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  {{#if company.legalName}}{{company.legalName}}{{else}}{{company.companyName}}{{/if}} &nbsp;|&nbsp; {{company.address}}{{#if company.gstNumber}} &nbsp;|&nbsp; GSTIN: {{company.gstNumber}}{{/if}}
+</div>
+
+</body>
+</html>

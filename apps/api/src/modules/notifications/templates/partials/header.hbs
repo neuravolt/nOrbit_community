@@ -1,0 +1,17 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-bottom: 1px solid #f1f5f9;">
+  <tr>
+    <td style="padding: 20px 32px;" valign="middle">
+      {{#if brand.logoUrl}}
+        <img src="{{brand.logoUrl}}" alt="{{brand.name}}" height="34" style="height: 34px; width: auto; max-width: 180px; display: block; border: 0; outline: none; font-size: 18px; font-weight: 700; color: {{brand.accent}};" />
+      {{else}}
+        <div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; line-height: 1; color: #0f172a;"><span style="color: {{brand.accent}};">{{brand.name}}</span></div>
+        {{#if brand.tagline}}<div style="font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #64748b; margin-top: 4px;">{{brand.tagline}}</div>{{/if}}
+      {{/if}}
+    </td>
+    {{#if headerTag}}
+    <td align="right" style="padding: 20px 32px;" valign="middle">
+      <span style="font-size: 11px; font-weight: 600; color: #64748b; letter-spacing: 0.6px; text-transform: uppercase;">{{headerTag}}</span>
+    </td>
+    {{/if}}
+  </tr>
+</table>

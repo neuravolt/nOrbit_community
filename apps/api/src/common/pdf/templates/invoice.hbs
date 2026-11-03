@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page { size: A4; margin: 14mm 16mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, Helvetica, sans-serif; font-size: 9.5pt; color: #0f172a; line-height: 1.45; }
+
+  /* ── HEADER ── */
+  .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #334155; padding-bottom: 14px; margin-bottom: 18px; }
+  .company-name { font-size: 18pt; font-weight: 700; color: #0f172a; letter-spacing: -0.5px; text-transform: uppercase; }
+  .tagline { font-size: 8pt; color: #64748b; margin-top: 3px; font-style: italic; }
+  .logo-wrap { display: flex; align-items: center; margin-bottom: 5px; }
+  .logo-wrap img { height: 38px; max-width: 190px; width: auto; object-fit: contain; display: block; }
+  .company-details { text-align: right; font-size: 8pt; color: #475569; line-height: 1.7; }
+  .company-details strong { color: #0f172a; }
+
+  /* ── DOC TITLE ── */
+  .doc-header { display: flex; justify-content: space-between; align-items: flex-start; margin: 16px 0 14px; }
+  .doc-title { font-size: 20pt; font-weight: 700; letter-spacing: -0.5px; text-transform: uppercase; color: #0f172a; }
+  .doc-meta { text-align: right; font-size: 8.5pt; line-height: 1.9; color: #334155; }
+  .doc-meta .doc-num { font-size: 12pt; font-weight: 700; color: #0f172a; }
+  .status-badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 4px; }
+  .status-draft   { background: #f1f5f9; color: #475569; }
+  .status-sent    { background: #e0f2fe; color: #0369a1; }
+  .status-paid    { background: #dcfce7; color: #166534; }
+  .status-overdue { background: #fee2e2; color: #991b1b; }
+
+  /* ── BILL GRID ── */
+  .bill-grid { display: table; width: 100%; margin-bottom: 18px; background: #f8fafc; padding: 13px 16px; border-radius: 4px; border: 1px solid #e2e8f0; }
+  .bill-section { display: table-cell; width: 50%; vertical-align: top; }
+  .bill-section .label { font-size: 7.5pt; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+  .bill-section .client-name { font-size: 11pt; font-weight: 700; color: #0f172a; }
+  .bill-section p { font-size: 8pt; color: #475569; line-height: 1.65; margin-top: 1px; }
+
+  /* ── TABLE ── */
+  table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+  thead tr { background: #334155; }
+  th { color: #fff; padding: 8px 9px; font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; }
+  th.r { text-align: right; }
+  td { padding: 8px 9px; font-size: 8.5pt; border-bottom: 1px solid #e2e8f0; vertical-align: top; color: #0f172a; }
+  td.r { text-align: right; }
+  tr:nth-child(even) { background: #f8fafc; }
+  .item-desc { font-weight: 600; color: #0f172a; }
+  .item-sub { font-size: 7.5pt; color: #64748b; margin-top: 2px; }
+  .badge-free { display: inline-block; background: #dcfce7; color: #166534; font-size: 6.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px; vertical-align: middle; margin-right: 3px; }
+
+  /* ── TOTALS ── */
+  .totals-wrap { display: flex; justify-content: flex-end; margin-bottom: 20px; }
+  .totals-tbl { width: 290px; }
+  .totals-tbl td { padding: 5px 9px; font-size: 9pt; border: none; background: none; }
+  .totals-tbl td:first-child { color: #475569; }
+  .totals-tbl td:last-child { text-align: right; font-weight: 600; color: #0f172a; }
+  .totals-tbl .sep td { border-top: 1px solid #e2e8f0; padding-top: 9px; }
+  .totals-tbl .grand td { font-size: 11.5pt; font-weight: 800; border-top: 2px solid #334155; padding-top: 9px; color: #0f172a; }
+  .totals-tbl .disc td { color: #b91c1c; }
+
+  /* ── PAYMENT INFO ── */
+  .payment-box { border: 1px solid #cbd5e1; border-radius: 5px; padding: 12px 16px; margin-bottom: 16px; background: #f8fafc; }
+  .payment-box .box-title { font-weight: 700; font-size: 9pt; margin-bottom: 9px; padding-bottom: 6px; border-bottom: 1px solid #e2e8f0; color: #334155; text-transform: uppercase; letter-spacing: 0.5px; }
+  .pay-grid { display: block; }
+  .pay-row { display: inline-block; width: 48%; margin-right: 2%; font-size: 8.5pt; line-height: 1.7; color: #334155; }
+  .pay-row .k { color: #64748b; min-width: 100px; display: inline-block; }
+  .pay-row .v { font-weight: 600; font-family: Courier, monospace; color: #0f172a; }
+  .paid-box { border: 1.5px solid #22c55e !important; background: #f0fdf4 !important; border-radius: 6px; }
+  .paid-box .box-title { color: #15803d !important; border-bottom: 1px solid #bbf7d0 !important; }
+  .badge-paid { background: #dcfce7; color: #15803d; border: 1px solid #86efac; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 8pt; display: inline-block; }
+
+  /* ── TERMS ── */
+  .terms-box { border-top: 1px solid #e2e8f0; padding-top: 11px; margin-bottom: 20px; }
+  .terms-box .box-title { font-weight: 700; font-size: 8.5pt; color: #0f172a; }
+  .terms-box p { font-size: 7.5pt; color: #475569; line-height: 1.55; }
+
+  /* ── SIGNATURE ── */
+  .sig-area { display: flex; justify-content: space-between; margin-top: 24px; padding-top: 12px; border-top: 1px solid #e2e8f0; }
+  .sig-block { text-align: center; width: 210px; }
+  .sig-block img { height: 50px; margin-bottom: 6px; }
+  .sig-line { border-top: 1px solid #334155; margin-top: 42px; padding-top: 5px; font-size: 8pt; color: #475569; }
+
+  /* ── FOOTER ── */
+  .footer { margin-top: 28px; padding-top: 10px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 7pt; color: #94a3b8; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    {{#if company.logoUrl}}
+      <div class="logo-wrap"><img src="{{company.logoUrl}}" /></div>
+    {{else}}
+      <div class="company-name">{{company.companyName}}</div>
+    {{/if}}
+    {{#if company.legalName}}
+      <div style="font-size: 8pt; font-weight: bold; color: #555; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px;">A Brand of {{company.legalName}}</div>
+    {{/if}}
+    {{#if company.tagline}}<div class="tagline">{{company.tagline}}</div>{{/if}}
+  </div>
+  <div class="company-details">
+    {{#if company.address}}<div>{{company.address}}</div>{{/if}}
+    {{#if company.city}}<div>{{company.city}}{{#if company.state}}, {{company.state}}{{/if}}{{#if company.zip}} - {{company.zip}}{{/if}}</div>{{/if}}
+    {{#if company.phone}}<div>Tel: {{company.phone}}</div>{{/if}}
+    {{#if company.email}}<div>{{company.email}}</div>{{/if}}
+    {{#if company.gstNumber}}<div><strong>GSTIN: {{company.gstNumber}}</strong></div>{{/if}}
+    {{#if company.panNumber}}<div>PAN: {{company.panNumber}}</div>{{/if}}
+  </div>
+</div>
+
+<!-- DOC TITLE -->
+<div class="doc-header">
+  <div>
+    <div class="doc-title">Invoice</div>
+    <div><span class="status-badge status-{{invoice.status}}">{{invoice.status}}</span></div>
+  </div>
+  <div class="doc-meta">
+    <div class="doc-num">{{invoice.invoiceNumber}}</div>
+    <div>Issue Date: <strong>{{formatDate invoice.issueDate}}</strong></div>
+    <div>Due Date: <strong>{{formatDate invoice.dueDate}}</strong></div>
+    {{#if invoice.quote}}<div>Ref: {{invoice.quote.quoteNumber}}</div>{{/if}}
+  </div>
+</div>
+
+<!-- BILL TO / PAYMENT STATUS -->
+<div class="bill-grid">
+  <div class="bill-section">
+    <div class="label">Bill To</div>
+    <div class="client-name">{{invoice.client.name}}</div>
+    {{#if invoice.client.address}}<p>{{invoice.client.address}}</p>{{/if}}
+    {{#if invoice.client.phone}}<p>Tel: {{invoice.client.phone}}</p>{{/if}}
+    {{#if invoice.client.email}}<p>{{invoice.client.email}}</p>{{/if}}
+    {{#if invoice.client.gstNumber}}<p><strong>GSTIN: {{invoice.client.gstNumber}}</strong></p>{{/if}}
+  </div>
+  <div class="bill-section">
+    <div class="label">Payment Summary</div>
+    <p>Grand Total: <strong>{{formatCurrency invoice.grandTotal}}</strong></p>
+    <p>Amount Paid: <strong>{{formatCurrency invoice.amountPaid}}</strong></p>
+    <p>Balance Due: <strong>{{formatCurrency invoice.balanceDue}}</strong></p>
+  </div>
+</div>
+
+<!-- LINE ITEMS -->
+<table>
+  <thead>
+    <tr>
+      <th style="width:28px">#</th>
+      <th>Description</th>
+      <th style="width:55px">HSN</th>
+      <th style="width:55px">Unit</th>
+      <th style="width:48px" class="r">Qty</th>
+      <th class="r" style="width:90px">Unit Price</th>
+      <th class="r" style="width:88px">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each invoice.lineItems}}
+    <tr>
+      <td>{{add @index 1}}</td>
+      <td>
+        <div class="item-desc">
+          {{#if (eq this.itemType "FREE")}}<span class="badge-free">FREE</span>{{/if}}
+          {{this.description}}
+        </div>
+        {{#if this.longDescription}}<div class="item-sub">{{this.longDescription}}</div>{{/if}}
+        {{#if this.discountAmount}}<div class="item-sub" style="color:#b91c1c;">Discount: -{{formatCurrency this.discountAmount}}</div>{{/if}}
+      </td>
+      <td>{{#if this.hsnCode}}{{this.hsnCode}}{{else}}-{{/if}}</td>
+      <td>{{this.unit}}</td>
+      <td class="r">{{formatNumber this.quantity}}</td>
+      <td class="r">{{#if (eq this.itemType "FREE")}}-{{else}}{{formatCurrency this.unitPrice}}{{/if}}</td>
+      <td class="r">
+        {{#if (eq this.itemType "FREE")}}
+          <span style="color:#166534;font-weight:700;">FREE</span>
+        {{else}}
+          {{formatCurrency this.amount}}
+        {{/if}}
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<!-- TOTALS -->
+<div class="totals-wrap">
+  <table class="totals-tbl">
+    <tr><td>Subtotal</td><td>{{formatCurrency invoice.subTotal}}</td></tr>
+    {{#if invoice.discountAmount}}
+    <tr class="disc"><td>Discount</td><td>-{{formatCurrency invoice.discountAmount}}</td></tr>
+    {{/if}}
+    {{#if (eq invoice.gstType "CGST_SGST")}}
+    <tr><td>CGST @ {{formatNum invoice.cgstRate}}%</td><td>{{formatCurrency invoice.cgstAmount}}</td></tr>
+    <tr><td>SGST @ {{formatNum invoice.sgstRate}}%</td><td>{{formatCurrency invoice.sgstAmount}}</td></tr>
+    {{else}}
+    <tr><td>IGST @ {{formatNum invoice.igstRate}}%</td><td>{{formatCurrency invoice.igstAmount}}</td></tr>
+    {{/if}}
+    <tr class="grand sep"><td>Grand Total</td><td>{{formatCurrency invoice.grandTotal}}</td></tr>
+  </table>
+</div>
+
+<!-- PAYMENT INFO -->
+{{#if isPaid}}
+<div class="payment-box paid-box">
+  <div class="box-title" style="display: flex; justify-content: space-between; align-items: center;">
+    <span>Payment Confirmation &amp; Transaction Details</span>
+    <span class="badge-paid">PAID IN FULL</span>
+  </div>
+  <div class="pay-grid">
+    {{#if latestPayment}}
+      <div class="pay-row"><span class="k">Payment Mode:</span><span class="v">{{latestPayment.method}}</span></div>
+      <div class="pay-row"><span class="k">Amount Paid:</span><span class="v">{{formatCurrency latestPayment.amount}}</span></div>
+      {{#if latestPayment.transactionId}}
+        <div class="pay-row"><span class="k">Transaction ID:</span><span class="v" style="color: #0369a1;">{{latestPayment.transactionId}}</span></div>
+      {{/if}}
+      {{#if latestPayment.paidAt}}
+        <div class="pay-row"><span class="k">Paid Date:</span><span class="v">{{formatDate latestPayment.paidAt}}</span></div>
+      {{/if}}
+      {{#if latestPayment.notes}}
+        <div class="pay-row" style="width: 98%;"><span class="k">Gateway Ref:</span><span class="v" style="font-size: 8pt;">{{latestPayment.notes}}</span></div>
+      {{/if}}
+    {{else}}
+      <div class="pay-row"><span class="k">Status:</span><span class="v">PAID IN FULL</span></div>
+      <div class="pay-row"><span class="k">Amount Paid:</span><span class="v">{{formatCurrency invoice.amountPaid}}</span></div>
+      {{#if invoice.updatedAt}}
+        <div class="pay-row"><span class="k">Updated:</span><span class="v">{{formatDate invoice.updatedAt}}</span></div>
+      {{/if}}
+    {{/if}}
+  </div>
+</div>
+{{else}}
+{{#if company.bankName}}
+<div class="payment-box">
+  <div class="box-title">Bank Payment Details</div>
+  <div class="pay-grid">
+    <div class="pay-row"><span class="k">Account Name:</span><span class="v">{{company.accountHolderName}}</span></div>
+    <div class="pay-row"><span class="k">Bank Name:</span><span class="v">{{company.bankName}}</span></div>
+    <div class="pay-row"><span class="k">Account No:</span><span class="v">{{company.accountNumber}}</span></div>
+    <div class="pay-row"><span class="k">IFSC Code:</span><span class="v">{{company.ifscCode}}</span></div>
+    {{#if company.upiId}}<div class="pay-row"><span class="k">UPI ID:</span><span class="v">{{company.upiId}}</span></div>{{/if}}
+  </div>
+</div>
+{{/if}}
+{{/if}}
+
+<!-- TERMS -->
+{{#if company.invoiceTerms}}
+<div class="terms-box">
+  <div class="box-title">Terms &amp; Conditions</div>
+  <p>{{company.invoiceTerms}}</p>
+</div>
+{{/if}}
+
+<!-- SIGNATURE -->
+<div class="sig-area">
+  <div class="sig-block">
+    <div class="sig-line">Client Signature &amp; Stamp</div>
+  </div>
+  <div class="sig-block">
+    {{#if company.signatureUrl}}<img src="{{company.signatureUrl}}" />{{/if}}
+    <div class="sig-line">For {{#if company.legalName}}{{company.legalName}}{{else}}{{company.companyName}}{{/if}}<br/>Authorized Signatory</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  {{#if company.legalName}}{{company.legalName}}{{else}}{{company.companyName}}{{/if}} &nbsp;|&nbsp; {{company.address}}{{#if company.gstNumber}} &nbsp;|&nbsp; GSTIN: {{company.gstNumber}}{{/if}}
+</div>
+
+</body>
+</html>

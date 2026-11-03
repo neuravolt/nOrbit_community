@@ -1,0 +1,9 @@
+<h2 style="font-size: 18px; font-weight: bold; color: #0f172a; margin-top: 0; margin-bottom: 16px;">Hello {{#if clientName}}{{clientName}}{{else}}Partner{{/if}},</h2>
+<p style="margin: 0 0 16px 0;">This is a notification that your Annual Maintenance Contract (AMC) is expiring soon.</p>
+
+<div style="background-color: #fffbeb; padding: 16px; border-left: 4px solid #f59e0b; margin: 20px 0; border-radius: 0 6px 6px 0; font-size: 14px; line-height: 1.5; color: #78350f;">
+  <strong>Contract:</strong> {{#if contractNumber}}{{contractNumber}}{{else}}{{contractName}}{{/if}}<br>
+  <strong>Expiry Date:</strong> {{#if endDate}}{{endDate}}{{else}}{{expiryDate}}{{/if}}
+</div>
+
+<p style="margin: 0 0 8px 0;">We highly recommend renewing your contract before the expiry date to ensure uninterrupted maintenance support and service delivery. Please click the button below to view the contract details and terms.</p>

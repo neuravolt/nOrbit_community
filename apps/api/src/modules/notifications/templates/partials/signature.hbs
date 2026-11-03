@@ -1,0 +1,13 @@
+<div style="margin-top: 28px; padding-top: 18px; border-top: 1px solid #f1f5f9;">
+  {{#if company.signatureHtml}}
+    {{{company.signatureHtml}}}
+  {{else}}
+    <div style="font-size: 14px; font-weight: 600; color: #0f172a;">{{#if sender.name}}{{sender.name}}{{else}}{{#if company.companyName}}{{company.companyName}}{{else}}NeuraVolt{{/if}} team{{/if}}</div>
+    {{#if sender.designation}}<div style="font-size: 12px; color: #64748b;">{{sender.designation}}</div>{{/if}}
+    <div style="font-size: 12px; color: #64748b; margin-top: 6px;">
+      {{#if company.supportEmail}}<a href="mailto:{{company.supportEmail}}" style="color: #64748b; text-decoration: none;">{{company.supportEmail}}</a>{{else}}{{#if company.email}}<a href="mailto:{{company.email}}" style="color: #64748b; text-decoration: none;">{{company.email}}</a>{{/if}}{{/if}}
+      {{#if company.phone}} &nbsp;·&nbsp; <a href="tel:{{company.phone}}" style="color: #64748b; text-decoration: none;">{{company.phone}}</a>{{/if}}
+      {{#if company.website}} &nbsp;·&nbsp; <a href="{{company.website}}" style="color: #64748b; text-decoration: none;">{{company.website}}</a>{{/if}}
+    </div>
+  {{/if}}
+</div>

@@ -1,0 +1,64 @@
+<h2 style="font-size: 18px; font-weight: bold; color: #0f172a; margin-top: 0; margin-bottom: 16px;">Hello {{clientName}},</h2>
+
+{{#if isPaid}}
+  <p style="margin: 0 0 16px 0;">Thank you for your payment.</p>
+  <p style="margin: 0 0 16px 0;">We confirm that Invoice <strong>{{invoiceNumber}}</strong> has been paid in full.</p>
+
+  <div style="background-color: #f8fafc; padding: 16px; border-left: 4px solid #10b981; margin: 20px 0; border-radius: 0 6px 6px 0; font-size: 14px; line-height: 1.5;">
+    <strong style="color: #334155;">Invoice Number:</strong> {{invoiceNumber}}<br>
+    <strong style="color: #334155;">Grand Total:</strong> ₹{{grandTotal}}<br>
+    <strong style="color: #334155;">Amount Paid:</strong> ₹{{amountPaid}}<br>
+    <strong style="color: #334155;">Balance Due:</strong> ₹{{balanceDue}}<br>
+    <strong style="color: #334155;">Payment Status:</strong> <span style="color: #10b981; font-weight: bold;">PAID</span>
+  </div>
+
+  <p style="margin: 0 0 8px 0;">Please find the paid invoice attached for your records.</p>
+{{else}}
+  {{#if isPartial}}
+    <p style="margin: 0 0 16px 0;">Thank you for your payment.</p>
+    <p style="margin: 0 0 16px 0;">We have successfully received ₹{{amountPaid}} against Invoice <strong>{{invoiceNumber}}</strong>.</p>
+
+    <div style="background-color: #f8fafc; padding: 16px; border-left: 4px solid #3b82f6; margin: 20px 0; border-radius: 0 6px 6px 0; font-size: 14px; line-height: 1.5;">
+      <strong style="color: #334155;">Invoice Number:</strong> {{invoiceNumber}}<br>
+      <strong style="color: #334155;">Grand Total:</strong> ₹{{grandTotal}}<br>
+      <strong style="color: #334155;">Amount Paid:</strong> ₹{{amountPaid}}<br>
+      <strong style="color: #334155;">Balance Due:</strong> ₹{{balanceDue}}<br>
+      <strong style="color: #334155;">Due Date:</strong> {{dueDate}}
+    </div>
+
+    <p style="margin: 0 0 8px 0;">Please find the updated invoice attached.</p>
+  {{else}}
+    <p style="margin: 0 0 16px 0;">Please find attached Invoice <strong>{{invoiceNumber}}</strong> issued for your services.</p>
+
+    <div style="background-color: #f8fafc; padding: 16px; border-left: 4px solid {{brand.accent}}; margin: 20px 0; border-radius: 0 6px 6px 0; font-size: 14px; line-height: 1.5;">
+      <strong style="color: #334155;">Invoice Number:</strong> {{invoiceNumber}}<br>
+      <strong style="color: #334155;">Total Amount:</strong> ₹{{grandTotal}}<br>
+      <strong style="color: #334155;">Amount Paid:</strong> ₹{{amountPaid}}<br>
+      <strong style="color: #334155;">Balance Due:</strong> ₹{{balanceDue}}<br>
+      <strong style="color: #334155;">Due Date:</strong> {{dueDate}}
+    </div>
+
+    <p style="margin: 0 0 8px 0;">Please complete the payment before the due date.</p>
+  {{/if}}
+{{/if}}
+
+{{#unless isPaid}}
+  <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 14px 16px; border-radius: 8px; margin: 20px 0; font-size: 13px; color: #475569; line-height: 1.5;">
+    <strong style="color: #1e293b; display: block; margin-bottom: 4px;">Available Payment Options:</strong>
+    {{#if onlinePaymentEnabled}}
+      {{#if manualPaymentEnabled}}
+        <span>Pay securely online via <strong>{{#if activeOnlineGateway}}{{activeOnlineGateway}}{{else}}Cashfree{{/if}}</strong> (Cards, UPI, NetBanking), or submit a bank transfer / UPI payment with proof directly from your Client Portal.</span>
+      {{else}}
+        <span>Pay securely online via <strong>{{#if activeOnlineGateway}}{{activeOnlineGateway}}{{else}}Cashfree{{/if}}</strong> (Cards, UPI, NetBanking) directly from your Client Portal.</span>
+      {{/if}}
+    {{else}}
+      {{#if manualPaymentEnabled}}
+        <span>You can submit a direct bank transfer, UPI, or cheque payment with proof directly from your Client Portal.</span>
+      {{else}}
+        <span>Online payment is currently unavailable. Please contact our finance team for payment instructions.</span>
+      {{/if}}
+    {{/if}}
+  </div>
+{{/unless}}
+
+<p style="margin: 0 0 8px 0;">You can download the invoice PDF attached to this email or review statement details and manage payments in your Client Portal.</p>

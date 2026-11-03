@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>PaySlip - {{employee.name}}</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 15mm;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #000000;
+      padding: 0;
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    .outer-border {
+      border: 1px solid #7f8c8d;
+      padding: 10px;
+      background: #ffffff;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .header-container {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .payslip-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: #2980b9;
+      text-transform: none;
+      margin: 0;
+    }
+    .payslip-month {
+      font-size: 12px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin: 2px 0;
+    }
+    .company-legal-name {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000000;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .company-address {
+      font-size: 11px;
+      color: #000000;
+      font-weight: bold;
+      margin-top: 2px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: bold;
+      background: #f2f2f2;
+      color: #7f8c8d;
+      padding: 4px;
+      border: 1px solid #bdc3c7;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 0;
+    }
+
+    .details-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+    }
+    .details-table td {
+      border: 1px solid #bdc3c7;
+      padding: 4px 8px;
+      font-size: 11px;
+    }
+    .lbl {
+      font-weight: bold;
+      color: #000000;
+      width: 20%;
+    }
+    .val {
+      width: 30%;
+      color: #000000;
+    }
+
+    /* Columns layout */
+    .grid-container {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .grid-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .grid-table td {
+      width: 50%;
+      vertical-align: top;
+      padding: 0;
+    }
+    .grid-table td:first-child {
+      padding-right: 5px;
+    }
+    .grid-table td:last-child {
+      padding-left: 5px;
+    }
+
+    .breakdown-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .breakdown-table th {
+      border: 1px solid #bdc3c7;
+      background: #ffffff;
+      color: #7f8c8d;
+      font-weight: normal;
+      font-size: 11px;
+      padding: 4px 8px;
+    }
+    .breakdown-table td {
+      border: 1px solid #bdc3c7;
+      padding: 4px 8px;
+      font-size: 11px;
+    }
+    .text-right {
+      text-align: right;
+    }
+    .font-bold {
+      font-weight: bold;
+    }
+
+    .totals-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+    }
+    .totals-table td {
+      border: 1px solid #bdc3c7;
+      padding: 4px 8px;
+      font-size: 11px;
+    }
+
+    .footer-note {
+      color: #e74c3c;
+      font-size: 10.5px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="outer-border">
+    <div class="header-container">
+      <div style="font-size: 16px; font-weight: bold; color: #1e3a8a; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px;">NEURAVOLT Technology</div>
+      <div style="font-size: 10px; color: #64748b; font-style: italic; margin-bottom: 4px;">Intelligent Solutions. Measurable Impact.</div>
+      <div style="font-size: 11px; font-weight: bold; color: #475569;">A Brand of {{legalName}}</div>
+      <div style="font-size: 10px; color: #64748b; margin-top: 2px;">{{#if company.address}}{{company.address}}{{/if}}</div>
+      <div style="margin-top: 8px; font-size: 13px; font-weight: bold; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 4px 0; color: #0f172a; text-transform: uppercase; letter-spacing: 0.5px;">Salary Slip for {{monthName}} {{year}}</div>
+    </div>
+
+    <div class="section-title">Employee Details</div>
+    <table class="details-table">
+      <tr>
+        <td class="lbl">Employee Name :</td>
+        <td class="val"><strong>{{employee.name}}</strong></td>
+        <td class="lbl">Employee Code :</td>
+        <td class="val">{{employee.empId}}</td>
+      </tr>
+      <tr>
+        <td class="lbl">Designation :</td>
+        <td class="val">{{employee.designation}}</td>
+        <td class="lbl">Date of Joining :</td>
+        <td class="val">{{employee.joiningDate}}</td>
+      </tr>
+      <tr>
+        <td class="lbl">Bank Account :</td>
+        <td class="val">{{employee.bankAccount}}</td>
+        <td class="lbl">Date of Birth :</td>
+        <td class="val">{{employee.dob}}</td>
+      </tr>
+      <tr>
+        <td class="lbl">Number Of Working Days :</td>
+        <td class="val" colspan="3">{{#if employee.workingDays}}{{formatNum employee.workingDays}}{{else}}—{{/if}}</td>
+      </tr>
+    </table>
+
+    <div class="grid-container">
+      <table class="grid-table">
+        <tr>
+          <td>
+            <table class="breakdown-table">
+              <thead>
+                <tr>
+                  <th style="text-align: left;">ALLOWANCES</th>
+                  <th style="text-align: right; width: 100px;">AMOUNT(INR)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Basic Pay</td>
+                  <td class="text-right font-bold">{{formatInteger basicSalary}}</td>
+                </tr>
+                {{#if da}}
+                <tr>
+                  <td>D.A.</td>
+                  <td class="text-right font-bold">{{formatInteger da}}</td>
+                </tr>
+                {{/if}}
+                <tr>
+                  <td>HRA</td>
+                  <td class="text-right font-bold">{{formatInteger hra}}</td>
+                </tr>
+                {{#if conveyance}}
+                <tr>
+                  <td>Conveyance</td>
+                  <td class="text-right font-bold">{{formatInteger conveyance}}</td>
+                </tr>
+                {{/if}}
+                {{#if specialAllowance}}
+                <tr>
+                  <td>Special Allowance</td>
+                  <td class="text-right font-bold">{{formatInteger specialAllowance}}</td>
+                </tr>
+                {{/if}}
+                {{#if performanceIncentive}}
+                <tr>
+                  <td>Performance Incentive</td>
+                  <td class="text-right font-bold">{{formatInteger performanceIncentive}}</td>
+                </tr>
+                {{/if}}
+                <tr style="height: 20px;">
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr class="font-bold">
+                  <td>Gross Salary</td>
+                  <td class="text-right">{{formatInteger grossEarnings}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>
+            <table class="breakdown-table">
+              <thead>
+                <tr>
+                  <th style="text-align: left;">DEDUCTIONS</th>
+                  <th style="text-align: right; width: 100px;">AMOUNT(INR)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#if professionalTax}}
+                <tr>
+                  <td>Profess.Tax</td>
+                  <td class="text-right font-bold">{{formatInteger professionalTax}}</td>
+                </tr>
+                {{/if}}
+                {{#if gis}}
+                <tr>
+                  <td>GIS</td>
+                  <td class="text-right font-bold">{{formatInteger gis}}</td>
+                </tr>
+                {{/if}}
+                {{#if npsEmployee}}
+                <tr>
+                  <td>NPS Employee Contri.</td>
+                  <td class="text-right font-bold">{{formatInteger npsEmployee}}</td>
+                </tr>
+                {{/if}}
+                {{#if pf}}
+                <tr>
+                  <td>Provident Fund (PF)</td>
+                  <td class="text-right font-bold">{{formatInteger pf}}</td>
+                </tr>
+                {{/if}}
+                {{#if esi}}
+                <tr>
+                  <td>ESI</td>
+                  <td class="text-right font-bold">{{formatInteger esi}}</td>
+                </tr>
+                {{/if}}
+                {{#if tds}}
+                <tr>
+                  <td>TDS / Income Tax</td>
+                  <td class="text-right font-bold">{{formatInteger tds}}</td>
+                </tr>
+                {{/if}}
+                {{#if otherDeductions}}
+                <tr>
+                  <td>Other Deductions</td>
+                  <td class="text-right font-bold">{{formatInteger otherDeductions}}</td>
+                </tr>
+                {{/if}}
+                <tr class="font-bold">
+                  <td>Total Deduction</td>
+                  <td class="text-right">{{formatInteger totalDeductions}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <table class="totals-table">
+      <tr>
+        {{#if npsGovt}}
+        <td style="width: 25%; color: #7f8c8d;">NPS Govt. Contribution</td>
+        <td style="width: 25%; font-weight: bold; text-align: center;">{{formatInteger npsGovt}}</td>
+        {{/if}}
+        <td style="color: #7f8c8d; font-size: 11px; {{#unless npsGovt}}width: 50%;{{/unless}}">Net Salary (INR)</td>
+        <td style="font-weight: bold; text-align: center; font-size: 12px; color: #2980b9; {{#unless npsGovt}}width: 50%;{{/unless}}">{{formatInteger netSalary}}</td>
+      </tr>
+    </table>
+
+    <div style="text-align: center; margin-top: 25px; padding-top: 10px; border-top: 1px dashed #bdc3c7;">
+      <div style="font-size: 11px; font-weight: bold; color: #7f8c8d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px;">
+        *** System Generated Payslip ***
+      </div>
+      <div style="font-size: 9.5px; color: #95a5a6; font-style: italic;">
+        This document is electronically generated by the HR system of {{legalName}} and does not require a physical signature or stamp.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #fbfcfd; border-top: 1px solid #f1f5f9;">
+  <tr>
+    <td align="center" style="padding: 24px 32px 26px 32px; font-size: 11px; line-height: 1.6; color: #94a3b8;">
+      <img src="{{brand.watermarkUrl}}" alt="NeuraVolt" height="30" style="height: 30px; width: auto; display: block; margin: 0 auto 10px auto; border: 0; outline: none; font-size: 12px; font-weight: 700; color: #94a3b8;" />
+      {{#if company.companyName}}<div style="font-weight: 600; color: #64748b;">{{company.companyName}}</div>{{/if}}
+      {{#if company.address}}<div>{{company.address}}{{#if company.city}}, {{company.city}}{{/if}}{{#if company.state}}, {{company.state}}{{/if}}{{#if company.zip}} - {{company.zip}}{{/if}}</div>{{/if}}
+      {{#if portalUrl}}<div style="margin-top: 6px;">Reply to this email or open your <a href="{{portalUrl}}" style="color: #64748b; text-decoration: underline;">client portal</a>.</div>{{/if}}
+      <div style="margin-top: 10px; font-size: 10px; color: #cbd5e1;">&copy; {{currentYear}} {{#if company.companyName}}{{company.companyName}}{{else}}NeuraVolt{{/if}}. This email and any attachments are confidential and meant only for the addressee. If it reached you by mistake, please tell the sender and delete it.</div>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,45 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "ts-node src/index.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@neuravolt/shared-ai": "workspace:^",
+    "@neuravolt/shared-config": "workspace:^",
+    "@neuravolt/shared-prisma": "workspace:^",
+    "@neuravolt/shared-types": "workspace:^",
+    "@neuravolt/shared-utils": "workspace:^",
+    "bullmq": "^5.77.2",
+    "dotenv": "^17.4.2",
+    "handlebars": "^4.7.9",
+    "ioredis": "^5.10.1",
+    "nodemailer": "^8.0.10"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.9.1",
+    "@types/nodemailer": "^8.0.0",
+    "jest": "^30.0.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  },
+  "jest": {
+    "moduleFileExtensions": ["js", "json", "ts"],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "testEnvironment": "node"
+  }
+}

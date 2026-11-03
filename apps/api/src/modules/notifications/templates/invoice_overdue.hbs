@@ -1,0 +1,29 @@
+<h2 style="font-size: 18px; font-weight: bold; color: #dc2626; margin-top: 0; margin-bottom: 16px;">Hello {{clientName}},</h2>
+<p style="margin: 0 0 16px 0;">This is an urgent reminder that payment for Invoice <strong>{{invoiceNumber}}</strong> is currently overdue.</p>
+
+<div style="background-color: #fef2f2; padding: 16px; border-left: 4px solid #dc2626; margin: 20px 0; border-radius: 0 6px 6px 0; font-size: 14px; line-height: 1.6; color: #991b1b;">
+  <strong style="color: #7f1d1d;">Invoice Number:</strong> {{invoiceNumber}}<br>
+  <strong style="color: #7f1d1d;">Amount Due:</strong> ₹{{balanceDue}}<br>
+  <strong style="color: #7f1d1d;">Original Due Date:</strong> {{dueDate}}
+</div>
+
+<p style="margin: 0 0 12px 0;">Please settle the outstanding balance at your earliest convenience to avoid any disruption of active services.</p>
+
+<div style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 14px 16px; border-radius: 8px; margin: 20px 0; font-size: 13px; color: #475569; line-height: 1.5;">
+  <strong style="color: #1e293b; display: block; margin-bottom: 4px;">Payment Options:</strong>
+  {{#if onlinePaymentEnabled}}
+    {{#if manualPaymentEnabled}}
+      <span>Pay securely online via <strong>{{#if activeOnlineGateway}}{{activeOnlineGateway}}{{else}}Cashfree{{/if}}</strong> (Cards, UPI, NetBanking), or submit your bank wire/UPI payment proof directly from your Client Portal.</span>
+    {{else}}
+      <span>Pay securely online via <strong>{{#if activeOnlineGateway}}{{activeOnlineGateway}}{{else}}Cashfree{{/if}}</strong> (Cards, UPI, NetBanking) directly from your Client Portal.</span>
+    {{/if}}
+  {{else}}
+    {{#if manualPaymentEnabled}}
+      <span>You can submit a direct bank transfer, UPI, or cheque payment with proof directly from your Client Portal.</span>
+    {{else}}
+      <span>Online payment is currently unavailable. Please contact our finance team for payment instructions.</span>
+    {{/if}}
+  {{/if}}
+</div>
+
+<p style="margin: 0 0 8px 0;">Please use the secure button below to review your invoice statement and complete the payment.</p>

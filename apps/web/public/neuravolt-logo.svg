@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" fill="none">
+  <defs>
+    <linearGradient id="nv-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF4A17" />
+      <stop offset="100%" stop-color="#FF6B35" />
+    </linearGradient>
+  </defs>
+  <!-- NeuraVolt Hexagon / Lightning Symbol -->
+  <g transform="translate(10, 10)">
+    <path d="M40 5 L75 25 L75 65 L40 85 L5 65 L5 25 Z" fill="url(#nv-grad)" opacity="0.15" />
+    <path d="M40 5 L75 25 L75 65 L40 85 L5 65 L5 25 Z" stroke="url(#nv-grad)" stroke-width="3" fill="none" />
+    <!-- Thunderbolt Path -->
+    <path d="M44 18 L24 48 L38 48 L32 72 L54 40 L40 40 Z" fill="url(#nv-grad)" />
+  </g>
+  <!-- Text Brand -->
+  <text x="100" y="58" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="40" fill="#1E293B" letter-spacing="-1">Neura<tspan fill="#FF4A17">volt</tspan></text>
+  <text x="100" y="80" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="16" fill="#64748B" letter-spacing="4">NAPEL</text>
+</svg>

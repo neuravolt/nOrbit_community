@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Career DNA Report</title>
+  <style>
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1e293b; padding: 45px; line-height: 1.6; }
+    .header { border-bottom: 2px solid #6366f1; padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
+    .company-name { font-size: 18px; font-weight: 800; color: #4338ca; }
+    .doc-title { font-size: 26px; font-weight: 800; text-align: center; margin: 30px 0 5px; color: #0f172a; }
+    .subtitle { text-align: center; font-size: 12px; color: #64748b; margin-bottom: 30px; }
+    .student-name { text-align: center; font-size: 16px; font-weight: 700; color: #312e81; margin-bottom: 4px; }
+    .section { margin: 30px 0; page-break-inside: avoid; }
+    .section-title { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #4338ca; border-bottom: 1px solid #e0e7ff; padding-bottom: 6px; margin-bottom: 14px; }
+    .archetype-box { background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 10px; padding: 18px; }
+    .archetype-title { font-size: 18px; font-weight: 800; color: #5b21b6; margin-bottom: 6px; }
+    .archetype-meta { font-size: 12px; color: #4c1d95; }
+    .strand { margin-bottom: 14px; }
+    .strand-row { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 4px; }
+    .bar-bg { background: #eef2ff; border-radius: 6px; height: 10px; overflow: hidden; }
+    .bar-fill { background: linear-gradient(90deg, #6366f1, #8b5cf6); height: 100%; }
+    ul.plain { margin: 6px 0 0; padding-left: 18px; font-size: 12px; color: #334155; }
+    .stats-row { display: flex; gap: 14px; }
+    .stat-box { flex: 1; background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 8px; padding: 12px; text-align: center; }
+    .stat-value { font-size: 20px; font-weight: 800; color: #0f172a; }
+    .stat-label { font-size: 10px; color: #64748b; text-transform: uppercase; }
+    .footer { margin-top: 60px; font-size: 10px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 12px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="company-name">{{company.name}}</div>
+    <div style="font-size: 11px; color: #64748b;">Generated {{formatDate generatedAt}}</div>
+  </div>
+
+  <div class="doc-title">Career DNA Report</div>
+  <div class="subtitle">NeuraVolt LaunchPad &bull; Incubation Program</div>
+  <div class="student-name">{{fullName}}</div>
+
+  <div class="section">
+    <div class="section-title">Who You Are</div>
+    <div class="archetype-box">
+      <div class="archetype-title">{{archetype}}</div>
+      <div class="archetype-meta">Learning style: {{learningStyle}} &bull; Work style: {{workStyle}}</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-value">{{level}}</div><div class="stat-label">Incubation Level</div></div>
+      <div class="stat-box"><div class="stat-value">{{formatInteger totalPoints}}</div><div class="stat-label">Total XP</div></div>
+      <div class="stat-box"><div class="stat-value">{{trackName}}</div><div class="stat-label">Track</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">What You're Good At</div>
+    {{#each strands}}
+    <div class="strand">
+      <div class="strand-row"><span>{{this.name}}</span><span>{{this.score}}%</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width: {{this.score}}%;"></div></div>
+    </div>
+    {{/each}}
+
+    {{#if strengths.length}}
+    <div style="margin-top: 16px; font-size: 12px; font-weight: 700; color: #334155;">Strengths</div>
+    <ul class="plain">
+      {{#each strengths}}<li>{{this}}</li>{{/each}}
+    </ul>
+    {{/if}}
+
+    {{#if gaps.length}}
+    <div style="margin-top: 12px; font-size: 12px; font-weight: 700; color: #334155;">Growth Areas</div>
+    <ul class="plain">
+      {{#each gaps}}<li>{{this}}</li>{{/each}}
+    </ul>
+    {{/if}}
+  </div>
+
+  <div class="footer">
+    This report reflects assessment responses and roadmap activity recorded as of {{formatDate generatedAt}}. Scores update as you complete more roadmap topics.
+  </div>
+</body>
+</html>

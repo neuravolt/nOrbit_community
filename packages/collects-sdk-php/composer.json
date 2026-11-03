@@ -1,0 +1,16 @@
+{
+  "name": "neuravolt/collects-sdk",
+  "description": "Official Server-Side PHP SDK for NeuraVolt Collects Universal Payment Gateway",
+  "type": "library",
+  "license": "proprietary",
+  "autoload": {
+    "psr-4": {
+      "NeuraVolt\\Collects\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8.0",
+    "ext-curl": "*",
+    "ext-json": "*"
+  }
+}
